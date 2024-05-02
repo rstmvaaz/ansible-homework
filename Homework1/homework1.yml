@@ -49,5 +49,5 @@
      copy: 
        src: "./"
        dest: /root/
-       remote_src: yes 
+       
   
