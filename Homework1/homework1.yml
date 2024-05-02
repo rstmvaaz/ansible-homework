@@ -1,0 +1,53 @@
+- hosts: Ubuntu22
+  become: yes 
+
+  tasks: 
+   - name: Install packages on Ubuntu 
+     apt:
+       name: 
+         - apache2
+         - tree
+         - git
+       state: present
+
+   - name: Start Apache and make it permanent
+     service:
+       name: apache2
+       state: started 
+       enabled: true 
+
+   - name: Create group 'kaizen'
+     group:
+       name: kaizen
+       state: present
+
+   - name: Create group 'devops'
+     group:
+       name: devops
+       state: present
+
+   - name: Create group 'qa'
+     group:
+       name: qa
+       state: present
+ 
+   - name: Create user and add to groups
+     user:
+       name: Aziza
+       groups: kaizen, qa
+       append: true
+       state: present
+        
+   - name: Create user tester and add to qa group 
+     user:
+       name: tester
+       groups: qa
+       append: true
+       state: present
+       
+   - name: Copy files to Ubuntu VM 
+     copy: 
+       src: "./"
+       dest: /root/
+       remote_src: yes 
+  
